@@ -8,12 +8,22 @@ class BooksController < ApplicationController
     
     #Show a single book
     def show
-        #repond back with the book in json
+        book_to_return = {}
+        for book in @data
+            if book[:id] == params[:id]
+                book_to_return = book
+            end
+        end
+        render json: book_to_return
     end
     
     #Create a new book
     def create
-        #respond back with the created book in json
+        name = params[:name]
+        price = params[:price]
+        new_book = {name: name, price: price}
+        @data.push(new_book)
+        render json: new_book
     end
     
     #Update a book
